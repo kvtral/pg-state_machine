@@ -129,28 +129,28 @@ Ver el archivo `ejemplos.sql` para un ejemplo completo de implementación que in
 - [ ] Definición de estados finales e iniciales en una máquina de estado.
 - [ ] Al eliminar un estado de una transición, se deben reconectar los estados restantes para no dejar transiciones huerfanas. Por ahora no permite eliminar un estado si existe en una transición.
 - [ ] Permitir eliminar una transición. Cualquiera sea, por ahora permito sólo eliminar la transición si es la última.
-
-- [ ] Estoy abierto a sugerencia o indicaciones de cambios.
+- [ ] Verificar, al insertar una nueva transición, que si no es la inicial (Si la ME tiene transiciones no es la inicial), siempre queden conectadas las transiciones, para evitar transiciones huerfanas.
 
 
 # Cambios en la nueva versión
 ## Los cambios principales incluyen:
-* Actualización de los nombres de las funciones con el prefijo me_ para mantener consistencia
-* Se cambia uso de función para setear estado, a 3 que permiten next, previous, reset y un set:
-** `me_objeto_setear_siguiente_estado`
-** `me_objeto_setear_anterior_estado`
-** `me_objeto_setear_reiniciar_maquina`
+- Actualización de los nombres de las funciones con el prefijo me_ para mantener consistencia
+- Se cambia uso de función para setear estado, a 3 que permiten next, previous, reset y un set:
+>  `me_objeto_setear_siguiente_estado`
+>  `me_objeto_setear_anterior_estado`
+>  `me_objeto_setear_reiniciar_maquina`
 
 Actualización de los nombres de las funciones existentes:
-`maquina_estado_crear` -> `me_maquina_estado_crear`
-`maquina_estado_crear_estado` -> `me_estado_crear`
-`maquina_estado_crear_transicion` -> `me_transicion_crear`
-`maquina_estado_asociar_clase` -> `me_maquina_estado_asociar_clase`
-`maquina_estado_obtener_estado_actual_objeto` -> `me_objeto_obtener_estado_actual`
-`maquina_estado_cambiar_estado_objeto` -> `me_objeto_setear_siguiente_estado`
+* `maquina_estado_crear` -> `me_maquina_estado_crear`
+* `maquina_estado_crear_estado` -> `me_estado_crear`
+* `maquina_estado_crear_transicion` -> `me_transicion_crear`
+* `maquina_estado_asociar_clase` -> `me_maquina_estado_asociar_clase`
+* `maquina_estado_obtener_estado_actual_objeto` -> `me_objeto_obtener_estado_actual`
+* `maquina_estado_cambiar_estado_objeto` -> `me_objeto_setear_siguiente_estado`
 
 
 ## Autor
 * Álvaro J. Carrillanca [kvtral](https://github.com/kvtral)
 
+Estoy abierto a sugerencias o indicaciones de cambios:	
 alvaro (dot) carrillanca (at) gmail (dot) com
