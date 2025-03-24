@@ -15,7 +15,7 @@ BEGIN
 		'creación',
 		now()
 	);
-	REFRESH MATERIALIZED VIEW vista_estado_actual_objeto;
+--	REFRESH MATERIALIZED VIEW vista_estado_actual_objeto;
 	RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -502,7 +502,7 @@ BEGIN
 	);
 
 	RAISE NOTICE 'Cambio de estado exitoso: objeto %:% -> nuevo estado: %', p_objeto_clase, p_objeto_id, (me_estado_instancia(p_estado_id)).nombre;
-	REFRESH MATERIALIZED VIEW vista_estado_actual_objeto;	
+	--REFRESH MATERIALIZED VIEW vista_estado_actual_objeto;	
 END;
 $$ LANGUAGE plpgsql;
 
