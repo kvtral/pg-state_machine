@@ -90,7 +90,8 @@ BEGIN
 	FROM maquina_estado_transiciones t1
 	LEFT JOIN maquina_estado_transiciones t2
 		ON t1.estado_origen_id = t2.estado_destino_id
-	WHERE t2.id IS NULL;
+	WHERE t2.id IS NULL
+	AND t1.maquina_id = p_maquina_estado.id;
  
 	IF v_me_estado_id IS NULL THEN
 		RAISE EXCEPTION 'No se pudo determinar el estado inicial para la máquina de estado: %', maquina_estado.nombre;
@@ -111,7 +112,8 @@ BEGIN
 	FROM maquina_estado_transiciones t1
 	LEFT JOIN maquina_estado_transiciones t2
 		ON t1.estado_destino_id = t2.estado_origen_id
-	WHERE t2.id IS NULL;
+	WHERE t2.id IS NULL
+	AND t1.maquina_id = p_maquina_estado.id;
 
 	IF v_me_estado_id IS NULL THEN
 		RAISE EXCEPTION 'No se pudo determinar el estado final para la máquina de estado: %', maquina_estado.nombre;

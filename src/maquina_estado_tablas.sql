@@ -31,6 +31,10 @@ CREATE TABLE maquina_estado_transiciones (
 	UNIQUE (maquina_id, estado_origen_id, estado_destino_id)
 );
 
+ALTER TABLE maquina_estado_transiciones 
+ADD CONSTRAINT chk_transicion_diferente 
+CHECK (estado_origen_id <> estado_destino_id);
+
 CREATE TABLE maquina_estado_clase_relacion (
 	id           serial,
 	maquina_id   integer NOT NULL,
@@ -50,7 +54,7 @@ CREATE TABLE objeto_instancia_eventos_transicion (
 	PRIMARY KEY (id),
 	FOREIGN KEY (estado_id) REFERENCES maquina_estado_estados(id) ON DELETE CASCADE,
 	FOREIGN KEY (objeto_clase) REFERENCES maquina_estado_clase_relacion(clase_nombre),--ON DELETE CASCADE,
-	UNIQUE (objeto_id, estado_id, fecha_evento)
+	UNIQUE (objeto_id, objeto_clase, estado_id, fecha_evento)
 );
 
 CREATE MATERIALIZED VIEW vista_estado_actual_objeto AS
