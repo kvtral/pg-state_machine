@@ -4,7 +4,7 @@ Este proyecto implementa una máquina de estados configurable dinámicamente par
 
 ## Descripción
 
-El sistema permite definir máquinas de estado y asociarlas a tablas específicas, manteniendo un registro histórico de las transiciones de estado de cada objeto.
+El sistema permite definir máquinas de estado, estados independientes, configurar transiciones para cada máquina de estado y asociarlas a tablas específicas, manteniendo un registro histórico de las transiciones de estado de cada objeto.
 
 ## Características
 
@@ -12,7 +12,7 @@ El sistema permite definir máquinas de estado y asociarlas a tablas específica
 - Asociación automática de estados iniciales a nuevos objetos
 - Registro histórico de transiciones
 - Validación de transiciones permitidas
-- Prevención de transiciones desde estados finales
+- Prevención de transiciones __next__ desde estados finales o __previous__ desde estados iniciales
 
 ## Estructura de Tablas
 
@@ -118,7 +118,7 @@ Ver el archivo `ejemplos.sql` para un ejemplo completo de implementación que in
 - Una tabla solo puede tener una máquina de estado asociada
 - No se pueden eliminar estados que tengan transiciones asociadas
 - Sin embargo se puede eliminar toda la configuración de transiciones para una máquina de estados (con posibilidad de eliminar todos los eventos asociados).
-- Las transiciones son unidireccionales
+~~- Las transiciones son unidireccionales~~
 
 ## TODO List
 ### Tareas pendientes para esta primera versión
@@ -129,7 +129,9 @@ Ver el archivo `ejemplos.sql` para un ejemplo completo de implementación que in
 - [ ] Definición de estados finales e iniciales en una máquina de estado.
 - [ ] Al eliminar un estado de una transición, se deben reconectar los estados restantes para no dejar transiciones huerfanas. Por ahora no permite eliminar un estado si existe en una transición.
 - [ ] Permitir eliminar una transición. Cualquiera sea, por ahora permito sólo eliminar la transición si es la última.
-- [ ] Verificar, al insertar una nueva transición, que si no es la inicial (Si la ME tiene transiciones no es la inicial), siempre queden conectadas las transiciones, para evitar transiciones huerfanas.
+
+> [!CAUTION]
+> - [ ] __URGENTE__ Verificar, al insertar una nueva transición, que si no es la inicial (Si la ME tiene transiciones no es la inicial), siempre queden conectadas las transiciones, para evitar transiciones huerfanas. : 
 
 
 # Cambios en la nueva versión
