@@ -57,7 +57,7 @@ CREATE TABLE objeto_instancia_eventos_transicion (
 	UNIQUE (objeto_id, objeto_clase, estado_id, fecha_evento)
 );
 
-CREATE MATERIALIZED VIEW vista_estado_actual_objeto AS
+CREATE VIEW vista_estado_actual_objeto AS
 	SELECT DISTINCT ON (objeto_id, objeto_clase) 
 		objeto_id, 
 		objeto_clase, 
