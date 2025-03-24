@@ -3,7 +3,7 @@ CREATE TABLE maquina_estado (
 	id          serial,
     nombre      text NOT NULL,
     descripcion text,
-    parent_id   integer,
+    parent_id   integer, --no se usa por ahora, aún no se implementa la herencia de maquinas de estado
 	PRIMARY KEY (id),
 	FOREIGN KEY (parent_id) REFERENCES maquina_estado(id) ON DELETE SET NULL,
 	UNIQUE (nombre)
@@ -14,10 +14,7 @@ CREATE TABLE maquina_estado_estados (
 	id          serial,
     nombre      text NOT NULL,
     descripcion text,
---	es_default  boolean NOT NULL DEFAULT FALSE,
---    parent_id   integer,
 	PRIMARY KEY (id),
---	FOREIGN KEY (parent_id) REFERENCES maquina_estado_estados(id) ON DELETE SET NULL,
 	UNIQUE (nombre)
 );
 
@@ -29,8 +26,8 @@ CREATE TABLE maquina_estado_transiciones (
 	estado_destino_id integer NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (maquina_id) REFERENCES maquina_estado(id) ON DELETE CASCADE,
-	FOREIGN KEY (estado_origen_id) REFERENCES maquina_estado_estados(id) ON DELETE CASCADE,
-	FOREIGN KEY (estado_destino_id) REFERENCES maquina_estado_estados(id) ON DELETE CASCADE,
+	FOREIGN KEY (estado_origen_id) REFERENCES maquina_estado_estados(id), --ON DELETE CASCADE,
+	FOREIGN KEY (estado_destino_id) REFERENCES maquina_estado_estados(id), --ON DELETE CASCADE,
 	UNIQUE (maquina_id, estado_origen_id, estado_destino_id)
 );
 
@@ -52,6 +49,7 @@ CREATE TABLE objeto_instancia_eventos_transicion (
 	fecha_evento timestamptz NOT NULL DEFAULT now(),
 	PRIMARY KEY (id),
 	FOREIGN KEY (estado_id) REFERENCES maquina_estado_estados(id) ON DELETE CASCADE,
+	FOREIGN KEY (objeto_clase) REFERENCES maquina_estado_clase_relacion(clase_nombre),--ON DELETE CASCADE,
 	UNIQUE (objeto_id, estado_id, fecha_evento)
 );
 
