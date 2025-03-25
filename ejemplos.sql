@@ -15,11 +15,13 @@ INSERT INTO objeto_instancia_test (nombre) VALUES ('objeto_instancia_test_1');
 CREAMOS LA MAQUINA DE ESTADO Y LA CONFIGURAMOS
 *************/
 
+-- Crear máquina de estado
 SELECT me_maquina_estado_crear(
 	p_nombre      := 'maquina_estado_test', 
 	p_descripcion := 'Máquina de estado de prueba'
 );
 
+-- Crear estados
 SELECT me_estado_crear(
 	p_nombre         := 'estado_inicial', 
 	p_descripcion    := 'Estado inicial de prueba'
@@ -45,6 +47,7 @@ SELECT me_estado_crear(
 	p_descripcion    := 'Estado final de prueba'
 );
 
+-- Crear transiciones
 SELECT me_transicion_crear(
 	p_maquina_estado := me_maquina_estado_find('maquina_estado_test'), 
 	p_estado_origen  := me_estado_find('estado_inicial'), 
@@ -69,6 +72,7 @@ SELECT me_transicion_crear(
 	p_estado_destino := me_estado_find('estado_final')
 );
 
+-- Asociar la clase a la máquina de estado
 SELECT me_maquina_estado_asociar_clase(
 	p_maquina_estado := me_maquina_estado_find('maquina_estado_test'), 
 	p_clase_nombre   := 'objeto_instancia_test'
@@ -112,14 +116,15 @@ me_objeto_obtener_estado_actual
 CAMBIAMOS EL ESTADO DEL OBJETO
 *************/
 
-SELECT me_objeto_setear_siguiente_estado(
+SELECT me_objeto_crear_evento_transicion(
+	p_comando      := 'AVANZAR',
 	p_objeto_clase := 'objeto_instancia_test',
 	p_objeto_id    := 1,
 	p_evento       := 'evento_prueba'
 );
 /*
 NOTICE:  Cambio de estado exitoso: objeto objeto_instancia_test:  -> nuevo estado: pendiente de pago
- me_objeto_setear_siguiente_estado 
+ me_objeto_crear_evento_transicion 
 --------------------------------------
  
 (1 row)
@@ -137,14 +142,15 @@ maquina_estado_obtener_estado_actual_objeto
 (1 row)
 */
 
-SELECT me_objeto_setear_anterior_estado(
+SELECT me_objeto_crear_evento_transicion(
+	p_comando      := 'RETROCEDER',
 	p_objeto_clase := 'objeto_instancia_test',
 	p_objeto_id    := 1,
 	p_evento       := 'prueba_2'
 );
 /*
 NOTICE:  Cambio de estado exitoso: objeto objeto_instancia_test:  -> nuevo estado: inicial de prueba
- me_objeto_cambiar_estado 
+ me_objeto_crear_evento_transicion 
 --------------------------------------
  
 (1 row)
@@ -163,38 +169,41 @@ me_objeto_obtener_estado_actual
 */
 
 
-SELECT me_objeto_setear_siguiente_estado(
+SELECT me_objeto_crear_evento_transicion(
+	p_comando      := 'AVANZAR',
 	p_objeto_clase := 'objeto_instancia_test',
 	p_objeto_id    := 1,
 	p_evento       := 'avanzar_nuevamente'
 );
 /* 
 NOTICE:  Cambio de estado exitoso: objeto objeto_instancia_test:  -> nuevo estado: pendiente de pago
-me_objeto_cambiar_estado 
+me_objeto_crear_evento_transicion 
 -----------------------------------
  
 (1 row) */
 
-SELECT me_objeto_setear_siguiente_estado(
+SELECT me_objeto_crear_evento_transicion(
+	p_comando      := 'AVANZAR',
 	p_objeto_clase := 'objeto_instancia_test',
 	p_objeto_id    := 1,
 	p_evento       := 'avanzar_nuevamente'
 );
 /* 
 NOTICE:  Cambio de estado exitoso: objeto objeto_instancia_test:  -> nuevo estado: pagado
-me_objeto_cambiar_estado 
+me_objeto_crear_evento_transicion 
 -----------------------------------
  
 (1 row) */
 
-SELECT me_objeto_setear_reiniciar_maquina(
+SELECT me_objeto_crear_evento_transicion(
+	p_comando      := 'REINICIAR',
 	p_objeto_clase := 'objeto_instancia_test',
 	p_objeto_id    := 1,
 	p_evento       := 'reiniciar_maquina'
 );
 /*
 NOTICE:  Cambio de estado exitoso: objeto objeto_instancia_test:  -> nuevo estado: inicial de prueba
- me_objeto_setear_reiniciar_maquina 
+ me_objeto_crear_evento_transicion 
 -----------------------------------
  
 (1 row)
@@ -214,7 +223,8 @@ me_objeto_obtener_estado_actual
 
 -- [...] Se vuelve a avanzar y se llega al estado final
 
-SELECT me_objeto_setear_siguiente_estado(
+SELECT me_objeto_crear_evento_transicion(
+	p_comando      := 'AVANZAR',
 	p_objeto_clase := 'objeto_instancia_test',
 	p_objeto_id    := 1,
 	p_evento       := 'prueba cambiar objeto que esta en  estado final'
@@ -229,12 +239,12 @@ CONTEXT:  PL/pgSQL function me_objeto_cambiar_estado(regclass,integer,text) line
 Funciones de mantención de la máquina de estado
 *************/
 
-SELECT me_borrar_transiciones(
+SELECT me_limpiar_transiciones(
 	p_maquina_estado   := me_maquina_estado_find('maquina_estado_test'),
 	p_eliminar_eventos := true
 );
 /* 
- me_borrar_transiciones 
+ me_limpiar_transiciones 
 ------------------------
 
 (1 row) 

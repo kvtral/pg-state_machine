@@ -73,5 +73,14 @@ CREATE UNIQUE INDEX idx_vista_estado_actual_objeto ON vista_estado_actual_objeto
 --constraint que no permita borrar un estado si tiene transiciones
 ALTER TABLE maquina_estado_estados ADD CONSTRAINT no_borrar_estado_con_transiciones CHECK (NOT EXISTS (SELECT 1 FROM maquina_estado_transiciones WHERE estado_origen_id = id OR estado_destino_id = id));
 
-
  */
+
+-- TYPE para uso de eventos de transicion 
+
+CREATE TYPE comando_transicion AS ENUM (
+	'AVANZAR',    --Avanzar a la siguiente transicion
+	'RETROCEDER', --Retroceder a la transicion anterior
+	'REINICIAR',  --Reiniciar la maquina de estado
+	'SETEAR'      --Establecer un estado en particular
+);
+
