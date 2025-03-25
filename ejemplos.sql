@@ -116,7 +116,7 @@ me_objeto_obtener_estado_actual
 CAMBIAMOS EL ESTADO DEL OBJETO
 *************/
 
-SELECT me_objeto_crear_evento_transicion(
+SELECT me_objeto_cambiar_estado(
 	p_comando      := 'AVANZAR',
 	p_objeto_clase := 'objeto_instancia_test',
 	p_objeto_id    := 1,
@@ -124,7 +124,7 @@ SELECT me_objeto_crear_evento_transicion(
 );
 /*
 NOTICE:  Cambio de estado exitoso: objeto objeto_instancia_test:  -> nuevo estado: pendiente de pago
- me_objeto_crear_evento_transicion 
+ me_objeto_cambiar_estado 
 --------------------------------------
  
 (1 row)
@@ -142,7 +142,7 @@ maquina_estado_obtener_estado_actual_objeto
 (1 row)
 */
 
-SELECT me_objeto_crear_evento_transicion(
+SELECT me_objeto_cambiar_estado(
 	p_comando      := 'RETROCEDER',
 	p_objeto_clase := 'objeto_instancia_test',
 	p_objeto_id    := 1,
@@ -150,7 +150,7 @@ SELECT me_objeto_crear_evento_transicion(
 );
 /*
 NOTICE:  Cambio de estado exitoso: objeto objeto_instancia_test:  -> nuevo estado: inicial de prueba
- me_objeto_crear_evento_transicion 
+ me_objeto_cambiar_estado 
 --------------------------------------
  
 (1 row)
@@ -169,7 +169,7 @@ me_objeto_obtener_estado_actual
 */
 
 
-SELECT me_objeto_crear_evento_transicion(
+SELECT me_objeto_cambiar_estado(
 	p_comando      := 'AVANZAR',
 	p_objeto_clase := 'objeto_instancia_test',
 	p_objeto_id    := 1,
@@ -177,12 +177,12 @@ SELECT me_objeto_crear_evento_transicion(
 );
 /* 
 NOTICE:  Cambio de estado exitoso: objeto objeto_instancia_test:  -> nuevo estado: pendiente de pago
-me_objeto_crear_evento_transicion 
+me_objeto_cambiar_estado 
 -----------------------------------
  
 (1 row) */
 
-SELECT me_objeto_crear_evento_transicion(
+SELECT me_objeto_cambiar_estado(
 	p_comando      := 'AVANZAR',
 	p_objeto_clase := 'objeto_instancia_test',
 	p_objeto_id    := 1,
@@ -190,12 +190,12 @@ SELECT me_objeto_crear_evento_transicion(
 );
 /* 
 NOTICE:  Cambio de estado exitoso: objeto objeto_instancia_test:  -> nuevo estado: pagado
-me_objeto_crear_evento_transicion 
+me_objeto_cambiar_estado 
 -----------------------------------
  
 (1 row) */
 
-SELECT me_objeto_crear_evento_transicion(
+SELECT me_objeto_cambiar_estado(
 	p_comando      := 'REINICIAR',
 	p_objeto_clase := 'objeto_instancia_test',
 	p_objeto_id    := 1,
@@ -203,7 +203,7 @@ SELECT me_objeto_crear_evento_transicion(
 );
 /*
 NOTICE:  Cambio de estado exitoso: objeto objeto_instancia_test:  -> nuevo estado: inicial de prueba
- me_objeto_crear_evento_transicion 
+ me_objeto_cambiar_estado 
 -----------------------------------
  
 (1 row)
@@ -223,7 +223,7 @@ me_objeto_obtener_estado_actual
 
 -- [...] Se vuelve a avanzar y se llega al estado final
 
-SELECT me_objeto_crear_evento_transicion(
+SELECT me_objeto_cambiar_estado(
 	p_comando      := 'AVANZAR',
 	p_objeto_clase := 'objeto_instancia_test',
 	p_objeto_id    := 1,

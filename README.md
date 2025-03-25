@@ -144,7 +144,7 @@ SELECT me_objeto_obtener_estado_actual(
 );
 
 -- Crear evento de transicion sin setear estado
-SELECT me_objeto_crear_evento_transicion(
+SELECT me_objeto_cambiar_estado(
 	p_comando      := 'AVANZAR',
 	p_objeto_id    := id_objeto,
 	p_objeto_clase := 'nombre_tabla',
@@ -152,7 +152,7 @@ SELECT me_objeto_crear_evento_transicion(
 );
 
 -- Crear evento de transicion seteando estado
-SELECT me_objeto_crear_evento_transicion(
+SELECT me_objeto_cambiar_estado(
 	p_comando      := 'SETEAR',
 	p_objeto_id    := id_objeto,
 	p_objeto_clase := 'nombre_tabla',
@@ -217,10 +217,7 @@ ejecutar en la carpeta donde está el script
 # Cambios en la nueva versión
 ## Los cambios principales incluyen:
 - Actualización de los nombres de las funciones con el prefijo me_ para mantener consistencia
-- Se cambia uso de función para setear estado, a 3 que permiten next, previous, reset y un set:
->  `me_objeto_setear_siguiente_estado`
->  `me_objeto_setear_anterior_estado`
->  `me_objeto_setear_reiniciar_maquina`
+- Se crea una API úunica para cambiar el estado de un objeto: `me_objeto_cambiar_estado`, la transición se decide mediante comandos definidos en ENUM: `comando_transicion`
 - Al insertar una transición se ejecuta una serie de validaciones mediante `me_transicion_validacion`, forzando la declaración de transiciones de forma "cronológica", para evitar inconsistencias (lanza una excepción)
   - la primera declaración debe ser de la transición original 
   - las posteriores validan que el estado inicial sea el destino en una transición.

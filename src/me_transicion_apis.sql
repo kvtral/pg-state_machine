@@ -64,14 +64,14 @@ $$ LANGUAGE plpgsql;
 -- API de eventos de transicion
 ---------------------------------------
 
-CREATE OR REPLACE FUNCTION me_objeto_crear_evento_transicion(
+CREATE OR REPLACE FUNCTION me_objeto_cambiar_estado(
 	p_comando      comando_transicion,
 	p_objeto_id    integer,
 	p_objeto_clase regclass,
 	p_evento       text )
 RETURNS void AS $$
 BEGIN
-	PERFORM me_objeto_crear_evento_transicion(
+	PERFORM me_objeto_cambiar_estado(
 		p_comando      := p_comando,
 		p_objeto_id    := p_objeto_id,
 		p_objeto_clase := p_objeto_clase,
@@ -82,7 +82,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 
-CREATE OR REPLACE FUNCTION me_objeto_crear_evento_transicion(
+CREATE OR REPLACE FUNCTION me_objeto_cambiar_estado(
 	p_comando      comando_transicion,
 	p_objeto_id    integer,
 	p_objeto_clase regclass,
