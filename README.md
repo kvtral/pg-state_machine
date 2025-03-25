@@ -211,9 +211,6 @@ ejecutar en la carpeta donde está el script
 - [ ] Permitir eliminar una transición. Cualquiera sea, por ahora permito sólo eliminar la transición si es la última.
 - [ ] Actualmente se obliga a una continuidad bidimensional, pero pueden haber estados que son finales y tienen multiples origenes (como un estado 'cancelado', por ejemplo), asi también, una maquina de estado puede tener múltiples finales ('entregado', 'cancelado'). No se si tenga que cambiar la estructura de toda la implementación para permitir esto. Por ahora tengo la inquietud.
 
-~~ - [X] __URGENTE__ Verificar, al insertar una nueva transición, que si no es la inicial (Si la ME tiene transiciones no es la inicial), siempre queden conectadas las transiciones, para evitar transiciones huerfanas. : ~~
-
-
 # Cambios en la nueva versión
 ## Los cambios principales incluyen:
 - Actualización de los nombres de las funciones con el prefijo me_ para mantener consistencia
