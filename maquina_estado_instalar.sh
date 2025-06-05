@@ -1,4 +1,6 @@
 
+#!/usr/bin/env bash
+
 DB_USER=$1
 DB_HOST=$2
 DB_PORT=$3
